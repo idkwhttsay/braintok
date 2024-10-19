@@ -3,16 +3,31 @@
 import arrow from "../../img/arrow.png";
 import gradient from "../../img/gradient.png";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Time } from "@/app/landing/time";
+import { motion } from "framer";
+import {useAnimate} from "framer-motion";
 
+const slides = [<Time/>];
 export default function Landing() {
     const [clicked1, setClicked1] = useState(false);
+    const [scope, animate] = useAnimate();
+    const [animated, setAnimated] = useState(false);
 
-    return clicked1 ? (
-        <Time />
+    useEffect(() => {
+        if(!clicked1)
+            return;
+        animate(scope.current, {y:"100vh"});
+        setAnimated(true);
+    }, [animate, scope, clicked1]);
+
+    return clicked1 && animated ? (
+        <Time
+        />
     ) : (
-        <div
+        <motion.div
+            initial={{y: 0}}
+            ref={scope}
             onMouseDown={() => setClicked1(true)}
             className="flex-grow flex flex-col"
         >
@@ -40,6 +55,6 @@ export default function Landing() {
                 width={window.innerWidth}
                 src={gradient}
             />
-        </div>
+        </motion.div>
     );
 }

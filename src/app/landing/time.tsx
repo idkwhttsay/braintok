@@ -1,13 +1,17 @@
 "use client"
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { motion } from 'framer';
 // import { useState } from "react";
 
 export function Time() {
     // const [secondsLeft, _setSecondsLeft] = useState(100);
     const percentage = 66;
 
-    return <div className="absolute top-0 z-[-999] flex flex-col bg-[#ff5757] h-full w-full items-center justify-center">
+    return <motion.div
+        initial={{y: 500}}
+        animate={{y: 0}}
+        className="absolute top-0 z-[-999] flex flex-col bg-[#ff5757] h-full w-full items-center justify-center">
         <h1 className="absolute text-9xl font-bold drop-shadow-md shadow-black">
             {
                 Math.trunc(100 / 60)
@@ -22,5 +26,5 @@ export function Time() {
                     strokeLinecap: "butt"
                 })} value={percentage} />
         </div>
-    </div>
+    </motion.div>
 }
