@@ -1,58 +1,89 @@
-import React from 'react';
-import './App.css'; // Make sure to add styles here
+"use client"
 
-// Example of notes array (similar to the content in the image)
-const notes = [
-    "The average attention span is 8.25 s",
-    "E = mc^2",
-    "We are a team of dreamers!",
-    "Our names are Kaz, Tymur, Daniil, and Mark!",
-    "LET'S GO TECH",
-    "In my free time, I do poster design for my dorm room"
-];
+import React from 'react';
+import {notes as initialNotes} from '../data/notes'
+// @ts-ignore
+import { useState } from "react";
+// Example of notes array
+
 
 // Utility function to generate random sizes and positions
 const getRandomStyles = () => {
-    const randomWidth = Math.floor(Math.random() * (200 - 100 + 1)) + 100; // Width between 100 and 200px
-    const randomHeight = Math.floor(Math.random() * (150 - 80 + 1)) + 80; // Height between 80 and 150px
-    const randomX = Math.floor(Math.random() * 40); // Left margin (to simulate shifting)
-    const randomY = Math.floor(Math.random() * 20); // Top margin (for shifting vertically)
+    const randomX = Math.floor(Math.random() * 20); // Left margin
+    const randomY = Math.floor(Math.random() * 10); // Top margin
     const randomBackground = getRandomColor(); // Assign a random background color
 
     return {
-        width: `${randomWidth}px`,
-        height: `${randomHeight}px`,
+        padding: `${Math.random() * 20 + 10}px`, // Random padding between 10px and 30px
         marginLeft: `${randomX}px`,
         marginTop: `${randomY}px`,
         backgroundColor: randomBackground,
-        borderRadius: '20px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        borderRadius: '10px',
         fontSize: '1.1rem',
-        padding: '10px',
-        color: '#fff', // White text color
-        fontWeight: 'bold'
+        textAlign: 'center',
+        flexGrow: 1, // Allow notes to grow and fill the container
+        color: '#000', // Black text color
+        fontWeight: 'bold',
+        minWidth: '100px', // Ensure a minimum width for each note
+        boxSizing: 'border-box' // Ensure padding is included in the width calculation
     };
 };
 
 // Helper function to generate a random color from a predefined list
 const getRandomColor = () => {
-    const colors = ['#F7DC6F', '#E74C3C', '#48C9B0', '#85C1E9', '#F1948A', '#5DADE2'];
+    const colors = ['#FFDE59', '#FF5757', '#5CE1E6'];
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
 export default function Landing() {
+    const [notes, setNotes] = useState<string[]>(initialNotes); // Set the initial state
+
     return (
-        <div className="mindmap-container">
-            <h1>Your personal mind space</h1>
-            <div className="notes-container">
-                {notes.map((note, index) => (
-                    <div key={index} style={getRandomStyles()}>
-                        {note}
-                    </div>
-                ))}
+        <div style={containerStyles}>
+            <div style={innerContainerStyles}>
+                <h1 style={headerStyles}>Your personal mind space</h1>
+                <div style={notesContainerStyles}>
+                    {notes.map((note, index) => (
+                        <div key={index} style={getRandomStyles()}>
+                            {note}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
 }
+
+// Additional styles for responsiveness
+const containerStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh", // Ensure the container spans vertically
+    padding: "10px",
+    width: "600px"
+};
+
+const innerContainerStyles = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",  // Span the container horizontally
+};
+
+const notesContainerStyles = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start', // Align notes to the left
+    gap: '10px', // Add some gap between the notes
+    width: '100%', // Make notes container take the full width
+    margin: 'auto',
+};
+
+const headerStyles = {
+    fontSize: '2.5rem',
+    textAlign: 'center',
+    marginBottom: '50px',
+    fontWeight: 'bold'
+};
