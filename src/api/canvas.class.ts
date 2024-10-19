@@ -10,6 +10,7 @@ export default class CanvasClass {
         this.bearerToken = bearerToken;
     }
 
+    // Works
     async getAllCourses(): Promise<ICourse[]> {
         const response = await axios.get(
             `https://gatech.instructure.com/api/v1/courses?access_token=${this.bearerToken}`
@@ -75,7 +76,8 @@ export default class CanvasClass {
         } as IAssignment;
     }
 
-    async getCourseModules(courseId: number): Promise<IModule[]> {
+    // Works
+    async getAllModules(courseId: number): Promise<IModule[]> {
         const response = await axios.get(
             `https://gatech.instructure.com/api/v1/courses/${courseId}/modules?access_token=${this.bearerToken}`
         );
@@ -87,8 +89,8 @@ export default class CanvasClass {
                 id: response.data[i].id,
                 name: response.data[i].name,
                 position: response.data[i].position,
-                itemsCount: response.data[i].itemsCount,
-                itemsUrl: response.data[i].itemsUrl,
+                items_count: response.data[i].items_count,
+                items_url: response.data[i].items_url,
             } as IModule);
         }
 
@@ -107,15 +109,17 @@ export default class CanvasClass {
             id: response.data.id,
             name: response.data.name,
             position: response.data.position,
-            itemsCount: response.data.itemsCount,
-            itemsUrl: response.data.itemsUrl,
+            items_count: response.data.items_count,
+            items_url: response.data.items_url,
         } as IModule;
     }
 
     async getFilesOfModuleById(courseId: number, moduleId: number) {
         const res: IModule = await this.getCourseModuleById(courseId, moduleId);
 
-        const items = await axios.get(`${res.itemsUrl}`);
+        const items = await axios.get(
+            `${res.items_url}?access_token=${this.bearerToken}`
+        );
 
         const files: string[] = [];
         for (let i = 0; i < items.data.length; ++i) {
@@ -133,12 +137,12 @@ export default class CanvasClass {
         const files: string[] = [];
 
         for (let i = 0; i < courses.length; ++i) {
-            const modules = await this.getCourseModules(courses[i].id);
+            const modules = await this.getAllModules(courses[i].id);
 
             for (let j = 0; j < modules.length; ++j) {
                 const tmp: string[] = await this.getFilesOfModuleById(
                     courses[i].id,
-                    modules[i].id
+                    modules[j].id
                 );
 
                 files.push(...tmp);

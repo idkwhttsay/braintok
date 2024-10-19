@@ -2,6 +2,6 @@ export default interface IModule {
     id: number;
     name: string;
     position: number;
-    itemsCount: number;
-    itemsUrl: string;
+    items_count: number;
+    items_url: string;
 }
