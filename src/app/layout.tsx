@@ -22,7 +22,6 @@ export default function RootLayout({
         className="antialiased h-[100vh] flex flex-col"
     >
         <div className="flex w-100 p-5 text-5xl text-center flex-shrink py-6">
-            <Image className="mr-auto" alt="mindmap" width={45} src={mindmap}/>
             <h1 className={raleway_heavy.className + " top-[20px] absolute left-[50%] translate-x-[-50%]"}>
                 logo
             </h1>
