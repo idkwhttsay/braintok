@@ -7,5 +7,4 @@ export const notes: string[] = [
     "Our names are Kaz, Tymur, Daniil, and Mark!",
     "LET'S GO TECH",
     "In my free time, I do poster design for my dorm room",
-    'Ass breaker'
 ];

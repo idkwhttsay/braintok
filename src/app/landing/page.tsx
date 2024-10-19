@@ -3,18 +3,21 @@
 import arrow from "../../img/arrow.png";
 import gradient from "../../img/gradient.png";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Time } from "@/app/landing/time";
 import { motion } from "framer";
 import { Journal } from "@/app/landing/journal";
 import { QuickFact } from "@/app/landing/quick_fact";
+import { MindMap } from "@/app/landing/mindmap";
 
 export default function Landing() {
     const [clicked1, setClicked1] = useState(false);
     const [index, setIndex] = useState(0);
     const slides = [<Time setIndex={setIndex} key="1" seconds={8}/>,
         <Journal setIndex={setIndex} key="2"/>,
-    <QuickFact key="3"/>];
+    <QuickFact key="3" setIndex={setIndex}/>,
+    <MindMap key="4"/>
+    ];
 
     return clicked1 ? (
         slides[index]

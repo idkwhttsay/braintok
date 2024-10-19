@@ -4,6 +4,8 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { motion } from 'framer';
 import { useEffect, useState } from "react";
 // import CanvasClass from "@/api/canvas.class";
+// import getSubtask from "@/api/openAI/openAI-API";
+// import CanvasClass from "@/api/canvas.class";
 // import getSubtask from "../../api/openAI/openAI-API";
 
 export function Time(props: {seconds: number, setIndex: (index: number) => void}) {
@@ -12,15 +14,15 @@ export function Time(props: {seconds: number, setIndex: (index: number) => void}
     // const [subtask, setSubtask] = useState<string | null>("");
     const percentage = secondsLeft / props.seconds * 100;
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const canvas = new CanvasClass("2096~VBaXaAvP39aGWhVV2xuUnTzn8wxATf98PZz7rmWQFf278B4V3a2nCW7fJkDDxURh");
-    //         const files = await canvas.getAllFiles();
-    //         const result: string | null = await getSubtask(files);
-    //         setSubtask(result);
-    //         console.log(subtask);
-    //     })();
-    // }, []);
+    // async function hello() {
+    //     "use server"
+    //     const canvas = new CanvasClass("2096~VBaXaAvP39aGWhVV2xuUnTzn8wxATf98PZz7rmWQFf278B4V3a2nCW7fJkDDxURh");
+    //     const files = await canvas.getAllFiles();
+    //     const result: string | null = await getSubtask(files);
+    //     setSubtask(result);
+    //     console.log(subtask);
+    // }
+    // hello();
 
 
     useEffect(() => {
@@ -40,9 +42,10 @@ export function Time(props: {seconds: number, setIndex: (index: number) => void}
         initial={{y: 500}}
         animate={{y: 0}}
         exit={{y: 500}}
-        className="absolute top-0 flex flex-col bg-[#ff5757] h-full w-full items-center justify-center">
-        <h1 className="text-3xl text-center absolute top-[15%] font-bold">
-            What is the average attention span?
+        className="absolute top-0 flex flex-col bg-[#ff5757] h-full w-full items-center justify-center
+        from-[#ff5757] to-[rgba(56,56,56,.6)] bg-gradient-to-b from-90%">
+        <h1 className="text-2xl text-center absolute top-[15%] font-bold">
+            What is covered in the "day 4 nested quantifiers" from the course?
         </h1>
         <h1 className="absolute text-9xl font-bold" style={{textShadow: "5px 5px 5px 5px black"}}>
             {

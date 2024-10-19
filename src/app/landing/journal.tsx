@@ -20,7 +20,7 @@ export function Journal(props: {setIndex: (index: number) => void}) {
     >
         <div className="text-center text-5xl font-bold mt-[5rem] px-5">Take a break for journaling</div>
         <div className="flex flex-col mx-auto mt-[5rem]">
-            <input className="z-[99999] mx-auto py-2 px-4 bg-[#383838] color-[#7f7f7f] border-2 text-xl border-none rounded-xl"
+            <input onMouseDown={event => event.stopPropagation()} className="z-[99999] mx-auto py-2 px-4 bg-[#383838] color-[#7f7f7f] border-2 text-xl border-none rounded-xl"
                    placeholder="Reflect on what you learned..." />
         </div>
         <div className="my-auto">

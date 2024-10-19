@@ -4,6 +4,7 @@ import React from 'react';
 import {notes as initialNotes} from '../data/notes'
 // @ts-ignore
 import { useState } from "react";
+import { motion } from 'framer';
 // Example of notes array
 
 
@@ -35,13 +36,17 @@ const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
 };
 
-export default function Landing() {
+export function MindMap() {
     const [notes, setNotes] = useState<string[]>(initialNotes); // Set the initial state
 
     return (
-        <div style={containerStyles}>
+        <motion.div style={containerStyles}
+                    initial={{ y: 500 }}
+                    transition={{ duration: 0.2 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: 500 }}
+        >
             <div style={innerContainerStyles}>
-                <h1 style={headerStyles}>Your personal mind space</h1>
                 <div style={notesContainerStyles}>
                     {notes.map((note, index) => (
                         <div key={index} style={getRandomStyles()}>
@@ -50,7 +55,7 @@ export default function Landing() {
                     ))}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
@@ -61,7 +66,7 @@ const containerStyles = {
     justifyContent: "center",
     height: "100vh", // Ensure the container spans vertically
     padding: "10px",
-    width: "600px"
+    width: "100%"
 };
 
 const innerContainerStyles = {
