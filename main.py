@@ -2,9 +2,23 @@
 from config import API_KEY
 from openai import OpenAI
 from fileFormatConverter import convert_file
+import requests
+
+def load_homeworks(urls):
+    for url in urls:    # Send a GET request to the URL
+        with requests.get(url, stream=True) as response:
+            response.raise_for_status()  # Raise an error for bad responses
+            # Open a local file with write-binary mode
+            with open(f'file_{urls.index(url)}', 'wb') as f:
+                # Write the content of the response to the file in chunks
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            return f
+
+# Example usage
 
 
-def main():
+def create_subtasks_for_homework():
     #inputFileName = input("enter input file name with extension (supported types: pdf, docx): ")
     #  outputFileName = input("enter output file name without extension:")
 
