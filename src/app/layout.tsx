@@ -21,7 +21,7 @@ export default function RootLayout({
     <body
         className="antialiased overflow-hidden h-[100vh] flex flex-col"
     >
-        <div className="flex w-100 p-5 text-5xl text-center flex-shrink py-6">
+        <div className="flex w-100 z-[999] p-5 text-5xl text-center flex-shrink py-6">
             <h1 className={raleway_heavy.className + " top-[20px] absolute left-[50%] translate-x-[-50%]"}>
                 logo
             </h1>
