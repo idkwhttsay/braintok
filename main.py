@@ -1,4 +1,3 @@
-
 from config import API_KEY
 from openai import OpenAI
 from fileFormatConverter import convert_file

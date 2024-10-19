@@ -112,7 +112,7 @@ export default class CanvasClass {
         } as IModule;
     }
 
-    async getItemsOfModuleById(courseId: number, moduleId: number) {
+    async getFilesOfModuleById(courseId: number, moduleId: number) {
         const res: IModule = await this.getCourseModuleById(courseId, moduleId);
 
         const items = await axios.get(`${res.itemsUrl}`);
@@ -121,6 +121,27 @@ export default class CanvasClass {
         for (let i = 0; i < items.data.length; ++i) {
             if (items.data[i].url) {
                 files.push(items.data[i].url);
+            }
+        }
+
+        return files;
+    }
+
+    async getAllFiles() {
+        const courses: ICourse[] = await this.getAllCourses();
+
+        const files: string[] = [];
+
+        for (let i = 0; i < courses.length; ++i) {
+            const modules = await this.getCourseModules(courses[i].id);
+
+            for (let j = 0; j < modules.length; ++j) {
+                const tmp: string[] = await this.getFilesOfModuleById(
+                    courses[i].id,
+                    modules[i].id
+                );
+
+                files.push(...tmp);
             }
         }
 
