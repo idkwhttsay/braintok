@@ -6,28 +6,22 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Time } from "@/app/landing/time";
 import { motion } from "framer";
-import {useAnimate} from "framer-motion";
+import { Journal } from "@/app/landing/journal";
+import { QuickFact } from "@/app/landing/quick_fact";
 
-const slides = [<Time/>];
 export default function Landing() {
     const [clicked1, setClicked1] = useState(false);
-    const [scope, animate] = useAnimate();
-    const [animated, setAnimated] = useState(false);
+    const [index, setIndex] = useState(0);
+    const slides = [<Time setIndex={setIndex} key="1" seconds={8}/>,
+        <Journal setIndex={setIndex} key="2"/>,
+    <QuickFact key="3"/>];
 
-    useEffect(() => {
-        if(!clicked1)
-            return;
-        animate(scope.current, {y:"100vh"});
-        setAnimated(true);
-    }, [animate, scope, clicked1]);
-
-    return clicked1 && animated ? (
-        <Time
-        />
+    return clicked1 ? (
+        slides[index]
     ) : (
         <motion.div
             initial={{y: 0}}
-            ref={scope}
+            exit={{y:"100vh"}}
             onMouseDown={() => setClicked1(true)}
             className="flex-grow flex flex-col"
         >

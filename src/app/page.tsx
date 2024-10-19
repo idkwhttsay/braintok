@@ -25,7 +25,7 @@ export default async function Home() {
     <main className={raleway.className + " flex flex-col w-full h-[100vh]"}>
         <div className="flex flex-col mx-auto flex-grow justify-center">
             <TokenForm call={call}/>
-    </div>
+        </div>
     </main>
   );
 }
